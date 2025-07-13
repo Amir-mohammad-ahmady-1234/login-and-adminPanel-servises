@@ -4,23 +4,8 @@ import { Button } from '@/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
 import FormInputField from '@/components/FormInputField';
 import { loginSchema, type LoginSchemaType } from '@/schemas/loginSchema';
-import { useMutation } from '@tanstack/react-query';
-import { loginUser } from '@/services/authService';
-
-const fields = [
-  {
-    id: 'username',
-    label: 'نام کاربری',
-    placeholder: 'نام کاربری',
-    type: 'text',
-  },
-  {
-    id: 'password',
-    label: 'رمز عبور',
-    placeholder: 'رمز عبور',
-    type: 'password',
-  },
-] as const;
+import { useLogin } from '@/hooks/useLogin';
+import { fields } from '@/data/authFields';
 
 const LoginPage = () => {
   const {
@@ -31,28 +16,11 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { mutate, error, status } = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (data) => {
-      console.log('ورود موفق:', data);
-      localStorage.setItem('access', data.access);
-    },
-    onError: (error) => {
-      console.log('خطای لعنتی لاگین:', error);
-    },
-  });
+  const { mutate, status } = useLogin();
 
   const onSubmit = (data: LoginSchemaType) => {
     mutate(data);
   };
-
-  if (error) {
-    if (error.message.includes('401')) {
-      console.log('کاربری با این مشخصات وجود ندارد');
-    } else {
-      console.log('خطا در برقراری ارتباط');
-    }
-  }
 
   return (
     <div
