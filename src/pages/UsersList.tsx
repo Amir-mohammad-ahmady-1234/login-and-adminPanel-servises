@@ -100,6 +100,8 @@ const UsersList = () => {
       <p className="text-center mt-4 text-red-600">خطا در دریافت کاربران</p>
     );
 
+  if (isFetching) return <Loading />;
+
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-50 px-4 py-8">
       <Card className="w-full max-w-4xl shadow-xl rounded-2xl">
@@ -147,12 +149,6 @@ const UsersList = () => {
                   ))}
                 </tbody>
               </table>
-            )}
-
-            {isFetching && !isLoading && (
-              <div className="absolute top-2 left-2">
-                <Loading />
-              </div>
             )}
           </div>
 

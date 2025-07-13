@@ -14,10 +14,17 @@ export const getUsers = async (page: number, size: number) => {
 };
 
 export const deleteUser = async (id: number) => {
-  const res = await axios.post(`/manager-manage-account/${id}`, {
-    action: 'delete',
-  });
+  const formData = new FormData();
+  formData.append('action', 'delete');
 
-  if ('error' in res.data) throw new Error(res.data.error);
-  return res.data.success;
+  try {
+    const res = await axios.post(`/manager-manage-account/${id}`, formData);
+    console.log(res.data);
+
+    if ('error' in res.data) throw new Error(res.data.error);
+    return res.data.success;
+  } catch (error: unknown) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
 };
