@@ -1,19 +1,16 @@
+import { useLogout } from '@/hooks/useLogout';
 import { Button } from '@/ui/button';
-import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    localStorage.removeItem('role');
-    navigate('/login');
-  };
+  const logoutMutation = useLogout();
 
   return (
-    <Button variant="destructive" onClick={handleLogout}>
-      خروج از حساب
+    <Button
+      variant="destructive"
+      onClick={() => logoutMutation.mutate()}
+      disabled={logoutMutation.isPending}
+    >
+      {logoutMutation.isPending ? 'در حال خروج...' : 'خروج از حساب'}
     </Button>
   );
 };
