@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/ui/card';
-import LogoutBtn from '@/components/LogoutBtn';
+import LogoutBtn from '@/ui/LogoutBtn';
 
 const Home = () => {
   return (
