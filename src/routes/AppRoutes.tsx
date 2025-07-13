@@ -1,3 +1,4 @@
+import ProtectedRoute from '@/components/ProtectedRoute';
 import Home from '@/pages/Home';
 import LoginPage from '@/pages/LoginPage';
 import PageNotFound from '@/pages/PageNotFound';
@@ -9,9 +10,19 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/admin/users" element={<UsersList />} />
+
+        <Route element={<ProtectedRoute guestOnly={true} />}>
+          <Route path="/login" element={<LoginPage />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['manager']} />}>
+          <Route path="/admin/users" element={<UsersList />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={['simpleuser']} />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
