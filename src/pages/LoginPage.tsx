@@ -6,8 +6,12 @@ import FormInputField from '@/components/FormInputField';
 import { loginSchema, type LoginSchemaType } from '@/schemas/loginSchema';
 import { useLogin } from '@/hooks/useLogin';
 import { fields } from '@/data/authFields';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const { mutate, status } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -16,10 +20,17 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { mutate, status } = useLogin();
-
   const onSubmit = (data: LoginSchemaType) => {
-    mutate(data);
+    mutate(data, {
+      onSuccess: () => {
+        const role = localStorage.getItem('role');
+        if (role === 'manager') {
+          navigate('/admin/users');
+        } else {
+          navigate('/home');
+        }
+      },
+    });
   };
 
   return (

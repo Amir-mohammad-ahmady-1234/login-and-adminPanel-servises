@@ -5,10 +5,11 @@ import toast from 'react-hot-toast';
 export const useLogin = () => {
   const { mutate, status } = useMutation({
     mutationFn: loginUser,
-    onSuccess: ({ access, refresh }) => {
+    onSuccess: ({ access, refresh, role }) => {
       toast.success('ورود با موفقیت انجام شد', { duration: 3000 });
       localStorage.setItem('access', access);
       localStorage.setItem('refresh', refresh);
+      localStorage.setItem('role', role);
     },
     onError: (error: Error) => {
       if (error.message.includes('401')) {
