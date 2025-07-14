@@ -12,7 +12,8 @@ const Home = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-center text-gray-600">
-            این صفحه برای تست Protected Route است.
+            این صفحه برای تست Protected Route است. تنها کاربران عادی اجازه ورود
+            دارند.
           </p>
 
           <div className="flex justify-center">

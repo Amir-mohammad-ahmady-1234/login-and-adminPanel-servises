@@ -1,4 +1,6 @@
+// axios.ts
 import axios from 'axios';
+import { refreshAccessToken } from './refreshAccessToken';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
@@ -24,16 +26,12 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
       try {
         const refreshToken = localStorage.getItem('refresh');
-        const formData = new FormData();
-        formData.append('refresh', refreshToken || '');
+        if (!refreshToken) throw new Error('No refresh token found');
 
-        const { data } = await axios.post(
-          `${BASE_URL}/login/refresh/`,
-          formData
-        );
-        const newAccessToken = data.access;
+        const newAccessToken = await refreshAccessToken(refreshToken);
 
         localStorage.setItem('access', newAccessToken);
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;

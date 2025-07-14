@@ -8,52 +8,11 @@ import toast from 'react-hot-toast';
 
 import { Button } from '@/ui/button';
 import Loading from '@/ui/Loading';
+import SimpleDialog from '@/components/admin/simpleDialog';
+import UsersTable from '@/components/admin/UsersTable';
+import type { UsersResponse } from '@/types/usersType';
 
 const PAGE_SIZE = 20;
-
-type User = {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-};
-
-type UsersResponse = {
-  users: User[];
-  nextPage: number | null;
-  isLastPage: boolean;
-  totalCount: number;
-};
-
-function SimpleDialog({
-  open,
-  onClose,
-  onConfirm,
-  loading,
-}: {
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  loading: boolean;
-}) {
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-        <h2 className="text-lg font-bold mb-4">حذف کاربر</h2>
-        <p className="mb-6">آیا مطمئنید می‌خواهید این کاربر حذف شود؟</p>
-        <div className="flex justify-around">
-          <Button variant="destructive" onClick={onConfirm} disabled={loading}>
-            حذف
-          </Button>
-          <Button variant="outline" onClick={onClose} disabled={loading}>
-            انصراف
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 const UsersList = () => {
   const queryClient = useQueryClient();
@@ -115,42 +74,11 @@ const UsersList = () => {
             دسترسی به این صفحه فقط برای مدیران مجاز است
           </p>
 
-          <div className="border rounded p-2 min-h-[200px] relative overflow-x-auto">
-            {data && data.users.length === 0 ? (
-              <p className="text-center">هیچ کاربری یافت نشد</p>
-            ) : (
-              <table className="w-full text-right border-collapse">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="border px-4 py-2">ID</th>
-                    <th className="border px-4 py-2">نام</th>
-                    <th className="border px-4 py-2">نام خانوادگی</th>
-                    <th className="border px-4 py-2">ایمیل</th>
-                    <th className="border px-4 py-2">عملیات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.users.map((user: User) => (
-                    <tr key={user.id} className="hover:bg-gray-50">
-                      <td className="border px-4 py-2">{user.id}</td>
-                      <td className="border px-4 py-2">{user.first_name}</td>
-                      <td className="border px-4 py-2">{user.last_name}</td>
-                      <td className="border px-4 py-2">{user.email}</td>
-                      <td className="border px-4 py-2 text-center">
-                        <button
-                          className="text-red-600 hover:text-red-800 disabled:opacity-50"
-                          onClick={() => setDeleteId(user.id)}
-                          disabled={mutation.isPending}
-                        >
-                          حذف
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+          <UsersTable
+            data={data}
+            isPending={mutation.isPending}
+            setDeleteId={setDeleteId}
+          />
 
           <div className="flex justify-between items-center mt-4">
             <Button
