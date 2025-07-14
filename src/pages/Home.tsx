@@ -1,5 +1,4 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/ui/card';
-import LogoutBtn from '@/ui/LogoutBtn';
 
 const Home = () => {
   return (
@@ -15,10 +14,6 @@ const Home = () => {
             این صفحه برای تست Protected Route است. تنها کاربران عادی اجازه ورود
             دارند.
           </p>
-
-          <div className="flex justify-center">
-            <LogoutBtn />
-          </div>
         </CardContent>
       </Card>
     </div>

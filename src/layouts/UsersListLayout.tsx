@@ -1,9 +1,8 @@
-import type { UsersResponse } from "@/types/usersType";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ui/card";
-import UsersTable from "./UsersTable";
-import SimpleDialog from "./simpleDialog";
-import LogoutBtn from "@/ui/LogoutBtn";
-import PaginationControls from "./PaginationControls";
+import type { UsersResponse } from '@/types/usersType';
+import { Card, CardContent, CardHeader, CardTitle } from '@/ui/card';
+import UsersTable from '../components/admin/UsersTable';
+import SimpleDialog from '../components/admin/simpleDialog';
+import PaginationControls from '../components/admin/PaginationControls';
 
 type UsersListLayoutProps = {
   data: UsersResponse | undefined;
@@ -58,10 +57,6 @@ const UsersListLayout = ({
             onConfirm={onDeleteConfirm}
             loading={isDeleting}
           />
-
-          <div className="mt-6 flex justify-center">
-            <LogoutBtn />
-          </div>
         </CardContent>
       </Card>
     </div>

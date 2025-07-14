@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Loading from '@/ui/Loading';
-import UsersListLayout from '@/components/admin/UsersListLayout';
+import UsersListLayout from '@/layouts/UsersListLayout';
 
 import { useUsers } from '../hooks/useUsers';
 import { useDeleteUser } from '../hooks/useDeleteUser';
