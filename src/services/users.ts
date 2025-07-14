@@ -28,3 +28,13 @@ export const deleteUser = async (id: number) => {
     throw error;
   }
 };
+
+export const getUserInfo = async () => {
+  try {
+    const res = await axios.post('/get-info/');
+    return res.data;
+  } catch (error) {
+    console.error('خطا در دریافت اطلاعات کاربر:', error);
+    throw error;
+  }
+};
