@@ -7,6 +7,7 @@ import { loginSchema, type LoginSchemaType } from '@/schemas/loginSchema';
 import { useLogin } from '@/hooks/useLogin';
 import { fields } from '@/data/authFields';
 import { useNavigate } from 'react-router-dom';
+import LoginGuideModal from '@/components/LoginGuideModal';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -44,6 +45,9 @@ const LoginPage = () => {
             ورود به حساب
           </CardTitle>
         </CardHeader>
+
+        <LoginGuideModal />
+
         <CardContent>
           <form
             onSubmit={handleSubmit(onSubmit)}
