@@ -1,69 +1,128 @@
-# React + TypeScript + Vite
+# پنل ورود و مدیریت کاربران (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+این پروژه یک پنل ورود و مدیریت کاربران است که با استفاده از React، TypeScript و Vite توسعه داده شده و از معماری Clean Code بهره می‌برد. این پروژه شامل احراز هویت JWT و ارتباط کامل با بک‌اند برای مدیریت کاربران و نقش‌ها می‌باشد.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ قابلیت‌ها و امکانات
 
-## Expanding the ESLint configuration
+- **ورود کاربران با نقش‌های مختلف (مدیر و کاربر ساده)**
+- **احراز هویت مبتنی بر JWT** (دریافت و ذخیره توکن‌های دسترسی و رفرش)
+- **Protected Route**: فقط کاربران مجاز به صفحات خاص دسترسی دارند
+- **مدیریت کاربران (ویژه مدیر):**
+  - مشاهده لیست کاربران با صفحه‌بندی
+  - حذف کاربر با تاییدیه
+- **راهنمای ورود با اطلاعات تست** (در صفحه ورود)
+- **نمایش پیام‌های موفقیت و خطا با Toast**
+- **رعایت Clean Code و استفاده از TypeScript**
+- **استفاده از React Query برای مدیریت داده‌ها و کشینگ**
+- **استفاده از TailwindCSS و Shadcn UI برای رابط کاربری مدرن و واکنش‌گرا**
+- **ساختار ماژولار و قابل توسعه**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ ابزارها و تکنولوژی‌ها
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) (راه‌اندازی سریع)
+- [React Router v6+](https://reactrouter.com/)
+- [React Query](https://tanstack.com/query/latest)
+- [TailwindCSS](https://tailwindcss.com/) + [Shadcn UI](https://ui.shadcn.com/)
+- [Zod](https://zod.dev/) (اعتبارسنجی فرم)
+- [React Hook Form](https://react-hook-form.com/)
+- [Axios](https://axios-http.com/)
+- [JWT](https://jwt.io/) (در سمت بک‌اند)
+- [ESLint](https://eslint.org/) + [Prettier](https://prettier.io/) (کدنویسی تمیز)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🔒 احراز هویت و ارتباط با بک‌اند
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **ورود:** ارسال اطلاعات کاربر به `/login/` و دریافت access و refresh token و نقش کاربر
+- **Protected Route:** بررسی نقش و توکن برای دسترسی به صفحات
+- **رفرش توکن:** در صورت منقضی شدن access token، با refresh token توکن جدید دریافت می‌شود (`/login/refresh/`)
+- **خروج:** حذف توکن‌ها و ارسال درخواست به `/logout/`
+- **مدیریت کاربران:** فقط مدیر می‌تواند لیست کاربران را ببیند و کاربر حذف کند (`/manager-get-all-users-of-org` و `/manager-manage-account/:id`)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 👤 اطلاعات ورود تستی
+
+برای تست سریع پروژه می‌توانید از اطلاعات زیر استفاده کنید:
+
+### مدیر
+
+- **نام کاربری:** `managerWEH1`
+- **رمز عبور:** `HI_test5467`
+
+### کاربر ساده
+
+- **نام کاربری:** `simpleuserWEH1`
+- **رمز عبور:** `HI_test5467`
+
+---
+
+## 🧑‍💻 ساختار صفحات
+
+- `/login` : صفحه ورود (با راهنمای ورود)
+- `/admin/users` : لیست کاربران (فقط مدیر)
+- `/home` : صفحه اصلی (فقط کاربر ساده)
+- صفحات محافظت‌شده بر اساس نقش
+
+---
+
+## 🧹 رعایت Clean Code
+
+- استفاده از TypeScript و تایپ‌های دقیق
+- جداسازی کامل منطق، سرویس‌ها، هوک‌ها و کامپوننت‌ها
+- رعایت اصول Single Responsibility و Separation of Concerns
+- استفاده از ESLint و Prettier برای یکدست‌سازی کد
+
+---
+
+## 🚀 راه‌اندازی و اجرای پروژه به صورت لوکال
+
+1. **کلون کردن مخزن:**
+   ```bash
+   git clone <REPO_URL>
+   cd login-and-adminPanel-servises
+   ```
+2. **نصب وابستگی‌ها:**
+   ```bash
+   npm install
+   ```
+3. **تنظیم متغیرهای محیطی:**
+   - یک فایل `.env` بسازید و مقدار `VITE_BASE_URL` را برابر آدرس بک‌اند قرار دهید:
+     ```env
+     VITE_BASE_URL=http://localhost:8000/api
+     ```
+4. **اجرای پروژه:**
+   ```bash
+   npm run dev
+   ```
+5. **دسترسی به پروژه:**
+   - مرورگر را باز کنید و به آدرس [http://localhost:5173](http://localhost:5173) بروید.
+
+---
+
+## 📁 ساختار پوشه‌ها (خلاصه)
+
+- `src/components/` : کامپوننت‌های قابل استفاده مجدد
+- `src/pages/` : صفحات اصلی
+- `src/services/` : ارتباط با API و بک‌اند
+- `src/hooks/` : هوک‌های سفارشی
+- `src/layouts/` : لایه‌بندی صفحات
+- `src/types/` : تایپ‌ها و اینترفیس‌ها
+- `src/ui/` : اجزای رابط کاربری
+
+---
+
+## 📝 نکات تکمیلی
+
+- پروژه کاملاً ماژولار و قابل توسعه است.
+- رعایت کامل Clean Code و Separation of Concerns.
+- آماده برای توسعه بیشتر و اتصال به هر بک‌اند مبتنی بر JWT.
+
+---
+
+توسعه داده شده با ❤️
